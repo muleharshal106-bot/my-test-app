@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
     - uses: actions/checkout@v4
@@ -16,10 +16,8 @@ jobs:
       with:
         python-version: '3.10'
 
-    - name: Setup Android SDK and NDK
+    - name: Setup Android SDK
       uses: android-actions/setup-android@v3
-      with:
-        packages: 'ndk;25.2.9519653 platforms;android-33 build-tools;33.0.2'
 
     - name: Install dependencies
       run: |
@@ -33,8 +31,6 @@ jobs:
 
     - name: Build with Buildozer
       run: |
-        export ANDROID_HOME=$ANDROID_HOME
-        export ANDROID_NDK_HOME="$ANDROID_HOME/ndk/25.2.9519653"
         yes | buildozer android debug
 
     - name: Upload APK
