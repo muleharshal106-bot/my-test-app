@@ -24,7 +24,7 @@ jobs:
     - name: Install system dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y libsqlite3-dev xclip libffi-dev libssl-dev autoconf automake libtool pkg-config zlib1g-dev
+        sudo apt-get install -y libsqlite3-dev xclip libffi-dev libssl-dev autoconf automake libtool libtool-bin pkg-config zlib1g-dev
 
     - name: Build with Buildozer
       run: |
