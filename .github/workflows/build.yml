@@ -25,22 +25,19 @@ jobs:
     - name: Install dependencies
       run: |
         pip install --upgrade pip
-        pip install buildozer cython kivy
+        # वॉर्निंग आणि क्रॅश टाळण्यासाठी स्थिर सायथॉन व्हर्जन
+        pip install "cython<3.0.0" buildozer kivy
 
     - name: Install system dependencies
       run: |
         sudo apt-get update
         sudo apt-get install -y libsqlite3-dev xclip libffi-dev libssl-dev autoconf automake libtool libtool-bin pkg-config zlib1g-dev
 
-    - name: Build with Buildozer (Memory Optimized)
+    - name: Build with Buildozer
       env:
-        # रॅम क्रॅश टाळण्यासाठी एका वेळी एकच कंपायलेशन थ्रेड चालवणे
         APP_ANDROID_ARCHS: arm64-v8a
       run: |
-        # बिल्डोझरला जास्तीत जास्त रॅम मिळावी म्हणून सिस्टीम गार्बेज क्लीन करणे
         sudo rm -rf /usr/share/dotnet
         sudo rm -rf /opt/ghc
         sudo rm -rf "/usr/local/share/boost"
-        
-        # फक्त एका मुख्य आर्किटेक्चरसाठी (arm64-v8a जो तुझ्या फोनचा आहे) बिल्ड करणे
         yes | buildozer android debug
